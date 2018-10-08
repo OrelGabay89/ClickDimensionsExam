@@ -1,5 +1,5 @@
-<h2>My Employees</h2>
 
+<h3>Add new Employee</h3>
 <form (ngSubmit)="add()" [formGroup]="addEmployeeForm" novalidate>
 
     <div class="form-group">
@@ -71,7 +71,8 @@
     <hr>
 </form>
 
-
+<h2>My Employees</h2>
+<hr>
 <p-table [value]="employees">
     <ng-template pTemplate="header">
         <tr>
