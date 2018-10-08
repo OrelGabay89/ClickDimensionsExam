@@ -1,0 +1,68 @@
+<form [formGroup]="editEmployeeForm" novalidate *ngIf="employee">
+    <h2>{{employee.firstName | uppercase}} {{employee.lastName | uppercase}} Details</h2>
+    <span>id: </span>{{employee.id}}
+
+    <div class="form-group">
+
+        <label class="d-block">
+            <input type="text" formControlName="firstName" [(ngModel)]="employee.firstName" [placeholder]="'First Name' | translate"
+                required/>
+        </label>
+        <small [hidden]="editEmployeeForm.controls.firstName.valid || editEmployeeForm.controls.firstName.untouched" class="text-danger"
+            translate>
+            First Name is invalid
+        </small>
+
+        <label class="d-block">
+            <input type="text" formControlName="lastName" [(ngModel)]="employee.lastName" [placeholder]="'Last Name' | translate" required/>
+        </label>
+        <small [hidden]="editEmployeeForm.controls.lastName.valid || editEmployeeForm.controls.lastName.untouched" class="text-danger"
+            translate>
+            LastName is invalid
+        </small>
+        <label class="d-block">
+            <input type="text" formControlName="email" [(ngModel)]="employee.email" [placeholder]="'Email Name' | translate" required/>
+        </label>
+        <small [hidden]="editEmployeeForm.controls.email.valid || editEmployeeForm.controls.email.untouched" class="text-danger"
+            translate>
+            Email is invalid
+        </small>
+        <label class="d-block">
+            <input type="text" formControlName="phone" [(ngModel)]="employee.phone" minlength="10" maxlength="10" [placeholder]="'Phone' | translate"
+                required/>
+        </label>
+        <small [hidden]="editEmployeeForm.controls.phone.valid || editEmployeeForm.controls.phone.untouched" class="text-danger"
+            translate>
+            Phone is invalid
+        </small>
+        <label class="d-block">
+            <input type="text" formControlName="birthdate" [(ngModel)]="employee.birthdate" pattern="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
+                [placeholder]="'Birthdate' | translate" required/>
+        </label>
+        <small [hidden]="editEmployeeForm.controls.birthdate.valid || editEmployeeForm.controls.birthdate.untouched" class="text-danger"
+            translate>
+            Birthdate is invalid
+        </small>
+        <label class="d-block">
+            <input type="text" formControlName="remarks" [(ngModel)]="employee.remarks" [placeholder]="'Remarks' | translate" />
+        </label>
+
+        <label class="d-block">
+            Department
+            <select formControlName="departmentId" [ngModel]="selectedDepartment" (ngModelChange)="onStatusChange($event)">
+
+                <ng-container *ngFor="let dept of departments">
+                    <option [ngValue]="dept">
+                        {{dept.departmentName}}
+                    </option>
+                </ng-container>
+            </select>
+        </label>
+
+    </div>
+
+    <button (click)="goBack()">go back</button>
+    <button (click)="save()" [disabled]="editEmployeeForm.invalid">save</button>
+    <br>
+    <hr>
+</form>

@@ -1,0 +1,110 @@
+<h2>My Employees</h2>
+
+<form (ngSubmit)="add()" [formGroup]="addEmployeeForm" novalidate>
+
+    <div class="form-group">
+        <label class="form-control-label" for="firstName">First Name </label>
+        <label class="d-block">
+
+            <input type="text" class="form-control" formControlName="firstName" [placeholder]="'First Name' | translate" required>
+            <small [hidden]="addEmployeeForm.controls.firstName.valid || addEmployeeForm.controls.firstName.untouched" class="text-danger" translate>
+                First Name is invalid
+            </small>
+
+        </label>
+        <label class="form-control-label" for="lastName">Last Name</label>
+        <label class="d-block">
+            <input type="text" class="form-control" formControlName="lastName" [placeholder]="'Last Name' | translate" required/>
+            <small [hidden]="addEmployeeForm.controls.lastName.valid || addEmployeeForm.controls.lastName.untouched" class="text-danger" translate>
+                Last Name is invalid
+            </small>
+        </label>
+        <label class="form-control-label" for="email">Email</label>
+
+        <label class="d-block">
+            <input type="text" class="form-control" formControlName="email" [placeholder]="'Email' | translate" required/>
+            <small [hidden]="!addEmployeeForm.controls.email.errors?.email || addEmployeeForm.controls.email.errors?.required" class="text-danger"
+                translate>
+                Email is invalid
+            </small>
+        </label>
+        <label class="form-control-label" for="Phone">Phone</label>
+        <label class="d-block">
+            <input type="text" class="form-control" formControlName="phone" [placeholder]="'Phone' | translate" minlength="10" maxlength="10"/>
+            <small [hidden]="addEmployeeForm.controls.phone.valid || addEmployeeForm.controls.phone.untouched" class="text-danger" translate>
+                Phone is invalid
+            </small>
+        </label>
+        <label class="form-control-label" for="birthdate">Birthdate</label>
+
+        <label class="d-block">
+            <input type="text" class="form-control" formControlName="birthdate" [placeholder]="'BirthDate' | translate" name="birthdate"
+                pattern="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$" />
+                <small [hidden]="addEmployeeForm.controls.birthdate.valid || addEmployeeForm.controls.birthdate.untouched" class="text-danger" translate>
+                    Birthdate is invalid
+                </small>
+        </label>
+        <label class="form-control-label" for="birthdate">Remarks</label>
+        <label class="d-block">
+            <input type="text" class="form-control" formControlName="remarks" [placeholder]="'Remarks' | translate" />
+        </label>
+
+        <label class="d-block">
+            Department
+            <select class="form-control" formControlName="departmentId" [ngModel]="defaultSelectedDepartment">
+                <option [ngValue]="null" disabled>Select Department</option>
+                <option *ngFor="let department of departments" [ngValue]="defaultSelectedDepartment">
+
+                    {{department.departmentName}}</option>
+            </select>
+
+
+
+        </label>
+
+    </div>
+    <button type="submit" *ngIf="showSubmitBtn" class="btn btn-primary w-100" translate [disabled]="addEmployeeForm.invalid">
+        <i class="fa fa-cog fa-spin" [hidden]="false"></i>
+        <span>Add</span>
+    </button>
+    <br>
+    <hr>
+</form>
+
+
+<p-table [value]="employees">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Birthdate</th>
+            <th>Remarks</th>
+            <th>Department</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee>
+        <tr>
+            <td>
+                <a routerLink="/detail/{{employee.id}}">
+                    <span class="badge">{{employee.id}}</span>
+                </a>
+            </td>
+            <td>{{employee.firstName}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.email}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.birthdate}}</td>
+            <td>{{employee.remarks}}</td>
+            <td>{{employee.departmentId | getDepartmentName}} </td>
+
+
+            <td>
+                <button class="delete" title="delete employee" (click)="delete(employee)">x</button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
