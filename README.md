@@ -36,7 +36,7 @@ proxy.conf.js                backend proxy configuration
 
 ## Development server
 
-Please run `ng serve` instead npm start(do not go through the Proxy)
+Please run `ng serve` instead of npm start(do not go through the Proxy)
 Navigate to `http://localhost:4200/`.
 
 Thanks
